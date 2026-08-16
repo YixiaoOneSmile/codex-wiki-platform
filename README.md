@@ -55,6 +55,27 @@ Markdown Wiki，而不是向量数据库和不可见的切片召回。
 
 ![Codex Wiki Platform 真实产品主页](docs/assets/wiki-chat-home-v2.jpg)
 
+### Markdown Wiki 知识库
+
+团队知识和个人知识以完整 Markdown 页面保存。页面可以搜索、阅读、编辑和追踪版本，回答时会显示
+实际命中的知识来源。
+
+![Markdown Wiki 知识库](docs/assets/wiki-library.jpg)
+
+### 多租户与成员权限
+
+每个组织独立保存知识、对话、Skill、任务和用量；成员可以分别配置为团队知识编辑者或仅使用者，
+并由组织决定是否开放个人知识库。
+
+![多租户组织与成员权限](docs/assets/multi-tenant-settings.jpg)
+
+### 周期定时任务
+
+既可以用一句自然语言创建任务，也可以手动设置单次、每天、每周、每月或固定间隔抓取，并保留
+每一次 Markdown 执行结果。
+
+![周期定时任务](docs/assets/scheduled-tasks.jpg)
+
 ## 快速开始
 
 需要 Node.js 22+、Docker Engine / Docker Desktop、Docker Compose，以及官方 `codex` CLI。

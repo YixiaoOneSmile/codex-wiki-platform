@@ -24,6 +24,7 @@
         </a>
         <div class="nav-links">
           <a href="#capabilities">能力</a>
+          <a href="#showcase">界面</a>
           <a href="#architecture">架构</a>
           <a href="https://github.com/YixiaoOneSmile/codex-wiki-platform/blob/main/docs/usage.md">文档</a>
           <a class="nav-cta" href="https://github.com/YixiaoOneSmile/codex-wiki-platform">GitHub</a>
@@ -96,6 +97,44 @@
             <p>按组织、用户和请求记录模型用量、成本、错误与关键行为，同时默认保护密钥和完整提示词。</p>
           </article>
         </div>
+      </section>
+
+      <section class="module-showcase" id="showcase">
+        <div class="section-heading showcase-heading">
+          <span>Real product modules</span>
+          <h2>不止是聊天，<br />每个核心模块都真实可用</h2>
+          <p>以下界面来自同一套本地演示环境。演示内容经过整理，用来清楚呈现 Wiki、多租户权限和周期任务的实际交互。</p>
+        </div>
+
+        <article class="module-card">
+          <div class="module-copy">
+            <span class="module-index">01 · Markdown Wiki</span>
+            <h3>知识是可阅读的页面，<br />不是不可见的向量切片</h3>
+            <p>团队与个人知识使用完整 Markdown 保存。用户能搜索、阅读、编辑、追踪版本，也能从对话引用直接回到原页面。</p>
+            <ul><li>团队知识与个人知识分区</li><li>标题和正文全文搜索</li><li>Markdown 表格、列表与引用</li></ul>
+          </div>
+          <div class="module-image"><img src="assets/wiki-library.jpg" alt="Codex Wiki Platform 的 Markdown Wiki 知识库界面" loading="lazy" /></div>
+        </article>
+
+        <article class="module-card module-card-reverse">
+          <div class="module-copy">
+            <span class="module-index">02 · Multi-tenant</span>
+            <h3>组织彼此隔离，<br />权限具体到每一位成员</h3>
+            <p>一个账号可以切换不同组织；组织知识、对话、任务和用量互不混用。团队成员还可以分别设置编辑或仅使用权限。</p>
+            <ul><li>独立组织名称与知识策略</li><li>所有者、管理员和成员角色</li><li>团队 Wiki 编辑权与个人 Wiki 开关</li></ul>
+          </div>
+          <div class="module-image"><img src="assets/multi-tenant-settings.jpg" alt="Codex Wiki Platform 的多租户组织与成员知识权限界面" loading="lazy" /></div>
+        </article>
+
+        <article class="module-card">
+          <div class="module-copy">
+            <span class="module-index">03 · Scheduled crawling</span>
+            <h3>一句话安排抓取，<br />循环任务也有完整记录</h3>
+            <p>用户可以自然语言或手动创建任务，设置单次、每天、每周、每月与固定间隔，由 Crawl4AI 保存 Markdown 结果。</p>
+            <ul><li>自然语言和手动两种创建方式</li><li>单次与四类循环计划</li><li>执行状态、历史结果和失败原因</li></ul>
+          </div>
+          <div class="module-image"><img src="assets/scheduled-tasks.jpg" alt="Codex Wiki Platform 的周期定时任务和 Crawl4AI 抓取界面" loading="lazy" /></div>
+        </article>
       </section>
 
       <section class="architecture" id="architecture">
