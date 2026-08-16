@@ -223,6 +223,29 @@ h1 em { color: var(--green-dark); font-weight: 400; }
 .architecture-flow span { color: #9eb0aa; font-size: 12px; }
 .architecture-flow i { align-self: center; color: #69d2ad; font-style: normal; }
 
+.deploy-prompt {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto 80px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(239,248,243,.96), rgba(255,255,255,.92) 56%, rgba(239,242,255,.78));
+  box-shadow: 0 30px 90px rgba(34,69,55,.09);
+}
+.prompt-heading { max-width: 790px; padding: 40px 42px 38px; }
+.prompt-heading > span { color: var(--green-dark); font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+.prompt-heading h2 { margin: 16px 0 0; font-family: var(--serif); font-size: clamp(42px, 5vw, 68px); font-weight: 400; letter-spacing: -.045em; line-height: 1.04; }
+.prompt-heading p { max-width: 680px; margin: 20px 0 0; color: var(--muted); line-height: 1.75; }
+.prompt-shell { overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 24px; color: #e9f4ef; background: #13211c; box-shadow: 0 24px 60px rgba(18,33,28,.2); }
+.prompt-bar { display: flex; min-height: 66px; padding: 0 20px 0 24px; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.09); color: #b8c9c2; font-size: 12px; font-weight: 650; letter-spacing: .03em; }
+.prompt-bar span { display: inline-flex; align-items: center; gap: 10px; }
+.prompt-bar i { width: 8px; height: 8px; border-radius: 50%; background: #65d1ab; box-shadow: 0 0 0 5px rgba(101,209,171,.1); }
+.prompt-bar button { min-width: 108px; min-height: 38px; padding: 0 16px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; color: #f5fbf8; background: rgba(255,255,255,.08); font: inherit; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+.prompt-bar button:hover { transform: translateY(-1px); background: rgba(255,255,255,.14); }
+.prompt-shell pre { margin: 0; padding: 30px 32px 34px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.prompt-shell code { color: #d9e8e2; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; line-height: 1.9; }
+.prompt-note { margin: 18px 8px 2px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
 .closing { width: min(900px, calc(100% - 48px)); margin: auto; padding: 90px 0 140px; text-align: center; }
 .closing h2 { font-size: clamp(48px, 6vw, 78px); }
 footer { display: flex; width: min(1120px, calc(100% - 48px)); min-height: 110px; margin: auto; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
@@ -230,7 +253,7 @@ footer .brand { color: var(--ink); font-size: 14px; }
 footer .brand-mark { width: 27px; height: 27px; border-radius: 8px; font-size: 12px; }
 
 @media (max-width: 800px) {
-  .nav, .hero, .section, .architecture, .closing, footer { width: min(100% - 32px, 680px); }
+  .nav, .hero, .section, .architecture, .deploy-prompt, .closing, footer { width: min(100% - 32px, 680px); }
   .nav-links a:not(.nav-cta) { display: none; }
   .hero { padding-top: 18px; }
   h1 { font-size: clamp(50px, 15vw, 76px); }
@@ -250,6 +273,9 @@ footer .brand-mark { width: 27px; height: 27px; border-radius: 8px; font-size: 1
   .module-image, .module-card-reverse .module-image { border-top: 1px solid var(--line); border-right: 0; border-left: 0; }
   .module-image img { height: auto; min-height: 0; object-fit: contain; }
   .architecture { grid-template-columns: 1fr; padding: 42px 24px; gap: 36px; }
+  .deploy-prompt { padding: 16px; border-radius: 25px; }
+  .prompt-heading { padding: 30px 18px; }
+  .prompt-shell pre { padding: 24px 22px 28px; }
   footer { flex-wrap: wrap; gap: 18px; padding: 26px 0; }
 }
 
@@ -266,6 +292,9 @@ footer .brand-mark { width: 27px; height: 27px; border-radius: 8px; font-size: 1
   .feature h3 { margin-top: 26px; }
   .mini-trace small { font-size: 10px; }
   .architecture-flow div { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .prompt-bar { padding: 15px 16px; align-items: stretch; flex-direction: column; gap: 13px; }
+  .prompt-bar button { width: 100%; }
+  .prompt-shell code { font-size: 12px; line-height: 1.75; }
   footer p { width: 100%; order: 3; }
 }
 
