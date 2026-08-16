@@ -15,9 +15,10 @@ Web 容器监听宿主机 8080。使用 Caddy、Nginx 或云负载均衡将 HTTP
 
 ## 定时抓取
 
-API 进程负责轮询和领取到期任务，Crawl4AI 容器负责实际打开网页并生成 Markdown。当前只支持
-一次性任务；执行记录和结果写入 PostgreSQL，不需要单独的任务队列。可通过
-`APP_TIMEZONE` 指定自然语言时间解释所用时区，通过 `SCHEDULER_POLL_MS` 调整轮询间隔。
+API 进程负责轮询和领取到期任务，Crawl4AI 容器负责实际打开网页并生成 Markdown。任务支持
+单次、每天、每周、每月和固定间隔执行；每次执行都写入独立运行记录，周期任务会计算下一次计划
+时间，服务恢复后不会补跑全部错过的周期。可通过 `APP_TIMEZONE` 指定自然语言时间解释所用时区，
+通过 `SCHEDULER_POLL_MS` 调整轮询间隔。
 
 Crawl4AI 保持根文件系统只读，只为 Chromium 配置、Crawl4AI 缓存、Gunicorn 状态和 `/tmp`
 提供临时写入目录。内置 Redis 只承担短期任务协调，已关闭 RDB/AOF 持久化；业务任务和结果

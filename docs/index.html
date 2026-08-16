@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7faf8" />
+    <meta name="description" content="Codex Wiki Platform：多租户 AI 知识协作、Markdown Wiki、Skill 与定时网页采集。" />
+    <meta property="og:title" content="Codex Wiki Platform" />
+    <meta property="og:description" content="让团队知识真正进入每一次 AI 对话。" />
+    <meta property="og:image" content="assets/wiki-chat-home.jpg" />
+    <title>Codex Wiki Platform — 团队知识，进入每一次对话</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="site.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="nav-wrap">
+      <nav class="nav" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="Codex Wiki Platform 首页">
+          <span class="brand-mark">W</span>
+          <span>Codex Wiki</span>
+        </a>
+        <div class="nav-links">
+          <a href="#capabilities">能力</a>
+          <a href="#architecture">架构</a>
+          <a href="https://github.com/YixiaoOneSmile/codex-wiki-platform/blob/main/docs/usage.md">文档</a>
+          <a class="nav-cta" href="https://github.com/YixiaoOneSmile/codex-wiki-platform">GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="eyebrow"><span></span> Open source · Apache-2.0</div>
+        <h1>让团队知识，进入<br /><em>每一次</em> AI 对话</h1>
+        <p class="hero-copy">
+          面向普通用户的多租户智能助手。用完整可读的 Markdown Wiki、清晰的组织权限和可追踪的
+          Agent 调用过程，把知识沉淀、查询与自动化放在同一个界面里。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/YixiaoOneSmile/codex-wiki-platform">查看开源项目</a>
+          <a class="button secondary" href="https://github.com/YixiaoOneSmile/codex-wiki-platform/blob/main/docs/usage.md">阅读使用指南 <span>→</span></a>
+        </div>
+
+        <div class="product-frame" aria-label="Codex Wiki Platform 产品预览">
+          <div class="frame-top">
+            <div class="frame-dots"><i></i><i></i><i></i></div>
+            <span>组织知识 · 可解释回答</span>
+            <b>● Live</b>
+          </div>
+          <img src="assets/wiki-chat-home.jpg" alt="Codex Wiki Platform 内部主页，展示 Wiki 搜索过程、回答和参考资料" />
+        </div>
+        <p class="product-caption">真实产品界面 · 非概念图</p>
+      </section>
+
+      <section class="section" id="capabilities">
+        <div class="section-heading">
+          <span>One quiet workspace</span>
+          <h2>知识、对话与自动化，<br />不再彼此割裂</h2>
+          <p>保留 ChatGPT 般克制的交互，同时提供企业真正需要的组织边界、引用证据和执行记录。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature feature-wide">
+            <span class="feature-number">01</span>
+            <h3>可读的 Wiki，不是黑盒切片</h3>
+            <p>团队和个人知识都以完整 Markdown 页面保存。用户可以阅读、编辑、搜索、追踪版本，也能看见回答引用了哪一页。</p>
+            <div class="mini-trace">
+              <span class="trace-icon">✓</span>
+              <div><strong>搜索知识库</strong><small>已检查 3 个可访问页面，找到 1 个相关页面</small></div>
+            </div>
+          </article>
+          <article class="feature">
+            <span class="feature-number">02</span>
+            <h3>组织级权限</h3>
+            <p>组织隔离、成员角色、团队知识编辑权和个人 Wiki 策略，都由服务端统一执行。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">03</span>
+            <h3>定时网页采集</h3>
+            <p>一句话创建单次或周期任务，由 Crawl4AI 抓取网页并保留每一次 Markdown 结果。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">04</span>
+            <h3>Agent 与 Skill</h3>
+            <p>基于 Codex app-server 的持续会话，按组织装载 Skill，并为高风险工具保留审批边界。</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">05</span>
+            <h3>审计与用量</h3>
+            <p>按组织、用户和请求记录模型用量、成本、错误与关键行为，同时默认保护密钥和完整提示词。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="architecture" id="architecture">
+        <div>
+          <span class="architecture-kicker">Built for a clear boundary</span>
+          <h2>平台负责业务，<br />Agent 专注完成任务</h2>
+        </div>
+        <div class="architecture-flow" aria-label="平台架构">
+          <div><b>React</b><span>克制的对话界面</span></div><i>→</i>
+          <div><b>Fastify API</b><span>认证、租户与审计</span></div><i>→</i>
+          <div><b>Codex + DeepSeek</b><span>Agent 推理与工具</span></div>
+        </div>
+      </section>
+
+      <section class="closing">
+        <span>Start with your own knowledge</span>
+        <h2>把它部署到你的服务器，<br />从第一篇 Wiki 开始。</h2>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/YixiaoOneSmile/codex-wiki-platform">在 GitHub 查看源码</a>
+          <a class="button secondary" href="https://github.com/YixiaoOneSmile/codex-wiki-platform/blob/main/docs/deployment.md">查看部署说明</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#top"><span class="brand-mark">W</span><span>Codex Wiki</span></a>
+      <p>Open source under Apache License 2.0</p>
+      <a href="https://github.com/YixiaoOneSmile/codex-wiki-platform">GitHub ↗</a>
+    </footer>
+  </body>
+</html>
