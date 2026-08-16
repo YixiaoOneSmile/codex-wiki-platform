@@ -1,0 +1,37 @@
+{
+  "name": "@cwp/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@cwp/database": "*",
+    "@cwp/shared": "*",
+    "@fastify/cookie": "latest",
+    "@fastify/cors": "latest",
+    "@fastify/multipart": "latest",
+    "@fastify/rate-limit": "latest",
+    "@node-rs/argon2": "latest",
+    "dotenv": "latest",
+    "drizzle-orm": "latest",
+    "fastify": "latest",
+    "fastify-plugin": "latest",
+    "mammoth": "latest",
+    "pino": "latest",
+    "sanitize-filename": "latest",
+    "unpdf": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "tsx": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}

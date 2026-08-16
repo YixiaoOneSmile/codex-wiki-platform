@@ -1,0 +1,35 @@
+{
+  "name": "codex-wiki-platform",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "build": "npm run build -w @cwp/shared && npm run build -w @cwp/database && npm run build -w @cwp/api && npm run build -w @cwp/web",
+    "predev": "npm run build -w @cwp/shared && npm run build -w @cwp/database",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev -w @cwp/api\" \"npm run dev -w @cwp/web\"",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run licenses:check && npm audit --omit=dev",
+    "db:migrate": "npm run db:migrate -w @cwp/database",
+    "db:seed": "npm run db:seed -w @cwp/database",
+    "db:bootstrap": "npm run db:bootstrap -w @cwp/database",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "licenses:check": "node scripts/check-licenses.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "npm run build -w @cwp/shared && npm run build -w @cwp/database && npm run typecheck -ws --if-present",
+    "protocol:generate": "node scripts/generate-codex-protocol.mjs",
+    "preflight": "node scripts/check-env.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "latest",
+    "@types/node": "latest",
+    "concurrently": "latest",
+    "eslint": "latest",
+    "prettier": "latest",
+    "typescript": "latest",
+    "typescript-eslint": "latest",
+    "vitest": "latest"
+  },
+  "engines": { "node": ">=22" }
+}

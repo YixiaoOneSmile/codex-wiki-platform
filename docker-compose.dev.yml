@@ -1,0 +1,9 @@
+services:
+  postgres:
+    ports:
+      - "5438:5432"
+  crawl4ai:
+    # Docker Desktop resolves public domains through 198.18.0.0/15. The API still
+    # enforces its own destination checks; never copy this override to production.
+    environment:
+      CRAWL4AI_ALLOW_INTERNAL_URLS: "true"

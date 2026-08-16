@@ -1,0 +1,29 @@
+{
+  "name": "@cwp/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./schema": { "types": "./dist/schema.d.ts", "default": "./dist/schema.js" }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "db:migrate": "tsx src/migrate.ts",
+    "db:seed": "tsx src/seed.ts",
+    "db:bootstrap": "tsx src/bootstrap.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@node-rs/argon2": "latest",
+    "dotenv": "latest",
+    "drizzle-orm": "latest",
+    "postgres": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

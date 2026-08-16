@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1785043065379,
+      "tag": "0000_charming_scream",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1785043600000,
+      "tag": "0001_user_onboarding",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1785043900000,
+      "tag": "0002_organization_skills",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1785044200000,
+      "tag": "0003_one_active_agent_run",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1785059000000,
+      "tag": "0004_platform_super_admin",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1785657600000,
+      "tag": "0005_scheduled_tasks",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1785820800000,
+      "tag": "0006_recurring_scheduled_tasks",
+      "breakpoints": true
+    }
+  ]
+}

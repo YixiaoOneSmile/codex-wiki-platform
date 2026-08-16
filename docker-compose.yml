@@ -1,0 +1,100 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: codex
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-codex_local_only}
+      POSTGRES_DB: codex_wiki
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codex -d codex_wiki"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    env_file: .env
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      API_HOST: 0.0.0.0
+      API_PORT: 4100
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:8080}
+      DATABASE_URL: ${DATABASE_URL_DOCKER:-postgres://codex:codex_local_only@postgres:5432/codex_wiki}
+      DATA_ROOT: /data/orgs
+      CODEX_HOME: /data/codex-home
+      CRAWL4AI_URL: http://crawl4ai:11235
+      CRAWL4AI_API_TOKEN: ${CRAWL4AI_API_TOKEN:-${AGENT_PROXY_TOKEN}}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      crawl4ai:
+        condition: service_healthy
+    volumes:
+      - app-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4100/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  crawl4ai:
+    image: unclecode/crawl4ai:0.8.9
+    command: ["supervisord", "-c", "/etc/crawl4ai/supervisord.conf"]
+    environment:
+      CRAWL4AI_API_TOKEN: ${CRAWL4AI_API_TOKEN:-${AGENT_PROXY_TOKEN}}
+      SECRET_KEY: ${CRAWL4AI_SECRET_KEY:-${AGENT_PROXY_TOKEN}}
+      CRAWL4AI_HOOKS_ENABLED: "false"
+    shm_size: 1gb
+    read_only: true
+    tmpfs:
+      - /tmp:size=1g,mode=1777
+      - /home/appuser/.crawl4ai:size=256m,mode=1777,uid=1000,gid=1000
+      - /home/appuser/.gunicorn:size=16m,mode=1777,uid=1000,gid=1000
+      - /home/appuser/.config:size=128m,mode=1777,uid=1000,gid=1000
+      - /home/appuser/.local:size=128m,mode=1777,uid=1000,gid=1000
+    volumes:
+      - ./infra/crawl4ai/supervisord.conf:/etc/crawl4ai/supervisord.conf:ro
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:11235/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 45s
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:size=32m
+      - /var/run:size=4m
+      - /tmp:size=64m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  postgres-data:
+  app-data:
