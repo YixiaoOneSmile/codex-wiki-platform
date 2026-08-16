@@ -76,6 +76,17 @@ Markdown Wiki，而不是向量数据库和不可见的切片召回。
 
 ![周期定时任务](docs/assets/scheduled-tasks.jpg)
 
+## 一句话交给大模型部署
+
+把下面整段复制给具备终端和文件操作能力的编程助手（例如 Codex、Claude Code 或 Cursor Agent），
+它会在本地拉取项目、配置环境、启动服务并完成验证：
+
+```text
+请在我的本地电脑上完整部署 Codex Wiki Platform：从 https://github.com/YixiaoOneSmile/codex-wiki-platform 克隆最新 main 分支，先检查并说明 Docker/Compose、Node.js 22+ 和官方 Codex CLI 是否可用，阅读 README、.env.example 与部署文档后创建仅保存在本机且不会提交的 .env；如果缺少 DeepSeek API Key 或其他必须由我提供的配置，请集中向我询问并等待，不得虚构、输出或提交任何密钥；配置完成后使用 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d 启动服务，按项目文档完成数据库初始化并执行 docker compose exec api node packages/database/dist/seed.js，确认各容器健康，运行项目检查与测试，最后实际访问 http://localhost:8080 验证登录、对话、Wiki、多租户权限和定时任务页面可用；遇到安全且可逆的本地问题请自行诊断、修复并重试，禁止删除现有数据、降低测试标准或跳过必要验证，完成后向我报告访问地址、演示账号、已通过的检查以及仍需我处理的事项。
+```
+
+> 提示词会要求助手在缺少密钥时暂停询问。不要在聊天、截图或公开仓库中粘贴真实密钥。
+
 ## 快速开始
 
 需要 Node.js 22+、Docker Engine / Docker Desktop、Docker Compose，以及官方 `codex` CLI。

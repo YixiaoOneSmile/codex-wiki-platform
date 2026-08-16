@@ -26,6 +26,7 @@
           <a href="#capabilities">能力</a>
           <a href="#showcase">界面</a>
           <a href="#architecture">架构</a>
+          <a href="#deploy-prompt">部署</a>
           <a href="https://github.com/YixiaoOneSmile/codex-wiki-platform/blob/main/docs/usage.md">文档</a>
           <a class="nav-cta" href="https://github.com/YixiaoOneSmile/codex-wiki-platform">GitHub</a>
         </div>
@@ -149,6 +150,22 @@
         </div>
       </section>
 
+      <section class="deploy-prompt" id="deploy-prompt">
+        <div class="prompt-heading">
+          <span>Deploy with an AI coding agent</span>
+          <h2>复制一句话，<br />让大模型完成本地部署</h2>
+          <p>适用于 Codex、Claude Code、Cursor 等具备终端和文件权限的智能编程助手。它会拉取项目、启动服务，并用真实页面验证结果。</p>
+        </div>
+        <div class="prompt-shell">
+          <div class="prompt-bar">
+            <span><i></i> 给大模型的完整指令</span>
+            <button type="button" id="copy-deploy-prompt">复制提示词</button>
+          </div>
+          <pre><code id="deploy-prompt-text">请在我的本地电脑上完整部署 Codex Wiki Platform：从 https://github.com/YixiaoOneSmile/codex-wiki-platform 克隆最新 main 分支，先检查并说明 Docker/Compose、Node.js 22+ 和官方 Codex CLI 是否可用，阅读 README、.env.example 与部署文档后创建仅保存在本机且不会提交的 .env；如果缺少 DeepSeek API Key 或其他必须由我提供的配置，请集中向我询问并等待，不得虚构、输出或提交任何密钥；配置完成后使用 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d 启动服务，按项目文档完成数据库初始化并执行 docker compose exec api node packages/database/dist/seed.js，确认各容器健康，运行项目检查与测试，最后实际访问 http://localhost:8080 验证登录、对话、Wiki、多租户权限和定时任务页面可用；遇到安全且可逆的本地问题请自行诊断、修复并重试，禁止删除现有数据、降低测试标准或跳过必要验证，完成后向我报告访问地址、演示账号、已通过的检查以及仍需我处理的事项。</code></pre>
+        </div>
+        <p class="prompt-note">缺少密钥时，助手会停下来询问；真实密钥只保存在本机，不应出现在聊天、截图或 Git 提交中。</p>
+      </section>
+
       <section class="closing">
         <span>Start with your own knowledge</span>
         <h2>把它部署到你的服务器，<br />从第一篇 Wiki 开始。</h2>
@@ -164,5 +181,28 @@
       <p>Open source under Apache License 2.0</p>
       <a href="https://github.com/YixiaoOneSmile/codex-wiki-platform">GitHub ↗</a>
     </footer>
+    <script>
+      const copyButton = document.querySelector("#copy-deploy-prompt");
+      const promptText = document.querySelector("#deploy-prompt-text");
+
+      copyButton.addEventListener("click", async () => {
+        const text = promptText.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.opacity = "0";
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand("copy");
+          textarea.remove();
+        }
+        copyButton.textContent = "已复制";
+        window.setTimeout(() => { copyButton.textContent = "复制提示词"; }, 1600);
+      });
+    </script>
   </body>
 </html>
