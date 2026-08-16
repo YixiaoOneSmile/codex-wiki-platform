@@ -20,7 +20,13 @@
 
 </div>
 
-![Codex Wiki Platform 产品主页](docs/assets/wiki-chat-home.jpg)
+![Codex Wiki Platform：让团队知识进入每一次 AI 对话](docs/assets/codex-wiki-overview.png)
+
+<div align="center">
+
+*完整 Wiki · 清晰引用 · 可追踪过程*
+
+</div>
 
 ## 它解决什么问题
 
@@ -41,6 +47,13 @@ Markdown Wiki，而不是向量数据库和不可见的切片召回。
 | 网页抓取 | 独立 Crawl4AI 服务，保存 Markdown 结果和每次执行记录 |
 | 审计与统计 | 模型用量/成本、审计日志、错误日志和基础行为事件 |
 | 安全边界 | 服务端密钥、租户范围查询、SSRF 防护、默认关闭 Agent Shell |
+
+## 真实产品界面
+
+下面是本地运行中的真实对话页面，而不是概念图。组织名称、Wiki 搜索过程、回答和参考资料均来自
+平台实际数据；演示侧栏仅保留一条代表性对话，便于看清核心体验。
+
+![Codex Wiki Platform 真实产品主页](docs/assets/wiki-chat-home-v2.jpg)
 
 ## 快速开始
 
