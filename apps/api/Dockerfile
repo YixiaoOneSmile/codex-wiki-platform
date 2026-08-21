@@ -13,8 +13,12 @@ RUN npm run build -w @cwp/shared && npm run build -w @cwp/database && npm run bu
 FROM node:24-bookworm-slim AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
+COPY .codex-version /tmp/codex-version
 RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates git ripgrep && rm -rf /var/lib/apt/lists/* \
-  && npm install --global @openai/codex@0.145.0 \
+  && CODEX_VERSION="$(cat /tmp/codex-version)" \
+  && npm install --global "@openai/codex@${CODEX_VERSION}" \
+  && test "$(codex --version)" = "codex-cli ${CODEX_VERSION}" \
+  && rm /tmp/codex-version \
   && useradd --create-home --uid 10001 app
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/apps/api/dist ./apps/api/dist

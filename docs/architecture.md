@@ -9,9 +9,20 @@
 ```text
 Browser -> API/Auth -> PostgreSQL
                     -> Usage/Audit/Event logs
-                    -> Agent runtime -> Codex app-server -> Responses adapter -> DeepSeek
+                    -> Agent runtime -> Codex Harness app-server -> Responses adapter -> DeepSeek
                                      -> isolated org workspace / Markdown Wiki
 ```
+
+## Codex Harness 集成
+
+平台使用官方 `openai/codex` 包中的 `codex app-server`，通过标准输入输出交换 JSONL 消息。CLI 与
+Harness 属于同一个 Codex 项目；本平台不嵌入终端 UI，而是使用 `app-server` 提供的 thread、turn、
+流式消息和工具审批协议。Docker 构建从仓库根目录 [`.codex-version`](../.codex-version) 读取精确
+版本并校验安装结果，避免镜像重建时意外漂移到不兼容版本。
+
+API 只自动接受平台策略允许的命令或文件变更请求；新版协议中尚未实现的服务端请求会返回 JSON-RPC
+`-32601`，而不是猜测响应或默认放行。`npm run codex:check` 会使用锁定版本验证初始化以及平台依赖的
+请求、审批和通知类型。
 
 ## Wiki 模式
 

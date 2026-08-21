@@ -1,3 +1,5 @@
+export const APP_VERSION = "0.2.0";
+
 export const ORG_ROLES = ["owner", "admin", "member"] as const;
 export type OrgRole = (typeof ORG_ROLES)[number];
 

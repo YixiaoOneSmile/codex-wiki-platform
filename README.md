@@ -10,6 +10,8 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-111827.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-339933.svg?logo=nodedotjs&logoColor=white)](package.json)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6.svg?logo=typescript&logoColor=white)](tsconfig.base.json)
+[![Release](https://img.shields.io/badge/release-v0.2.0-0F766E.svg)](CHANGELOG.md)
+[![Codex](https://img.shields.io/badge/Codex_Harness-0.149.0-111827.svg)](.codex-version)
 [![DeepSeek](https://img.shields.io/badge/Model-DeepSeek-4D6BFE.svg)](https://www.deepseek.com/)
 
 [在线产品展示](https://yixiaoonesmile.github.io/codex-wiki-platform/) ·
@@ -34,6 +36,11 @@ Codex Wiki Platform 为不熟悉开发工具的普通用户提供接近 ChatGPT 
 Agent、Skill、组织知识和可审计工具调用能力。平台以官方 Codex `app-server` 作为 Agent
 执行内核，通过服务端统一配置的 DeepSeek 模型提供推理能力；知识库采用完整、可阅读、可维护的
 Markdown Wiki，而不是向量数据库和不可见的切片召回。
+
+当前主版本为 **v0.2.0**，内置并锁定官方 **Codex Harness 0.149.0**。这里的 Harness 与
+Codex CLI 来自同一个 `openai/codex` 项目：CLI 是面向人的终端界面，`app-server` 是供产品接入的
+JSONL 协议服务。Docker 镜像会安装仓库 [`.codex-version`](.codex-version) 指定的精确版本，使用者
+不需要在宿主机额外安装 Codex。
 
 ## 核心能力
 
@@ -82,14 +89,16 @@ Markdown Wiki，而不是向量数据库和不可见的切片召回。
 它会在本地拉取项目、配置环境、启动服务并完成验证：
 
 ```text
-请在我的本地电脑上完整部署 Codex Wiki Platform：从 https://github.com/YixiaoOneSmile/codex-wiki-platform 克隆最新 main 分支，先检查并说明 Docker/Compose、Node.js 22+ 和官方 Codex CLI 是否可用，阅读 README、.env.example 与部署文档后创建仅保存在本机且不会提交的 .env；如果缺少 DeepSeek API Key 或其他必须由我提供的配置，请集中向我询问并等待，不得虚构、输出或提交任何密钥；配置完成后使用 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d 启动服务，按项目文档完成数据库初始化并执行 docker compose exec api node packages/database/dist/seed.js，确认各容器健康，运行项目检查与测试，最后实际访问 http://localhost:8080 验证登录、对话、Wiki、多租户权限和定时任务页面可用；遇到安全且可逆的本地问题请自行诊断、修复并重试，禁止删除现有数据、降低测试标准或跳过必要验证，完成后向我报告访问地址、演示账号、已通过的检查以及仍需我处理的事项。
+请在我的本地电脑上完整部署 Codex Wiki Platform：从 https://github.com/YixiaoOneSmile/codex-wiki-platform 克隆最新 main 分支，先检查并说明 Docker Engine / Docker Desktop 与 Docker Compose 是否可用，阅读 README、.env.example 与部署文档后创建仅保存在本机且不会提交的 .env；项目 API 镜像会按 .codex-version 自动安装官方 Codex Harness，不要把宿主机已安装 Codex CLI 当成部署前提；如果缺少 DeepSeek API Key 或其他必须由我提供的配置，请集中向我询问并等待，不得虚构、输出或提交任何密钥；配置完成后使用 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d 启动服务，按项目文档完成数据库初始化并执行 docker compose exec api node packages/database/dist/seed.js，确认各容器健康，运行项目检查与测试，最后实际访问 http://localhost:8080 验证登录、对话、Wiki、多租户权限和定时任务页面可用；遇到安全且可逆的本地问题请自行诊断、修复并重试，禁止删除现有数据、降低测试标准或跳过必要验证，完成后向我报告访问地址、演示账号、已通过的检查以及仍需我处理的事项。
 ```
 
 > 提示词会要求助手在缺少密钥时暂停询问。不要在聊天、截图或公开仓库中粘贴真实密钥。
 
 ## 快速开始
 
-需要 Node.js 22+、Docker Engine / Docker Desktop、Docker Compose，以及官方 `codex` CLI。
+Docker 部署只需要 Docker Engine / Docker Desktop 与 Docker Compose；API 镜像会自动安装仓库锁定的
+Codex Harness。只有直接在宿主机开发、检查协议或运行测试时才需要 Node.js 22+，也无需全局安装
+`codex`。
 
 ```sh
 cp .env.example .env
@@ -106,6 +115,19 @@ docker compose exec api node packages/database/dist/seed.js
 
 生产环境不要运行演示数据脚本，也不要继续使用任何示例密码。完整配置、Wiki、Skill、定时任务和
 服务器部署步骤见 [使用指南](docs/usage.md)。
+
+## 开发与版本维护
+
+```sh
+npm ci
+npm run check
+npm run build
+npm run codex:check
+```
+
+`codex:check` 会启动 [`.codex-version`](.codex-version) 锁定的官方 `app-server`，完成初始化并校验
+平台依赖的请求、审批和通知协议。升级 Harness 时先修改该文件，再运行完整检查；不要使用浮动的
+`latest`。版本变化见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 项目结构
 

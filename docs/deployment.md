@@ -10,6 +10,9 @@
 6. API healthy 后执行 `docker compose exec api node packages/database/dist/bootstrap.js`，创建首个组织与所有者。该命令可重复检查但不会覆盖既有账号；首次登录必须修改临时密码。完成后从 `.env` 删除五个 `BOOTSTRAP_*` 值并重启 API，避免临时密码长期留在服务器。
 7. 检查 `docker compose ps`，API、数据库与 Crawl4AI 必须为 healthy，再通过浏览器完成登录、Wiki、Skill、定时抓取和真实模型冒烟测试。
 
+Codex Harness 无需预先安装在宿主机。API 镜像会读取仓库根目录 `.codex-version`，安装并验证对应的
+官方 `@openai/codex` 精确版本；不要在生产构建时替换为 `latest`。
+
 Web 容器监听宿主机 8080。使用 Caddy、Nginx 或云负载均衡将 HTTPS 域名转发到
 `127.0.0.1:8080`。不要直接暴露 PostgreSQL、API 4100、Crawl4AI 11235 端口或 `/internal` 路径。
 
@@ -53,6 +56,19 @@ docker compose exec -T postgres pg_dump -U codex -d codex_wiki -Fc > codex-wiki.
 更新前备份两个 volume，在隔离环境执行迁移和测试，然后重新构建镜像。数据库迁移只允许向前
 执行；任何删除列、重写数据或批量删除必须单独设计可恢复方案并经人工批准。应用镜像可回滚，
 数据库只能恢复到与该镜像兼容的备份。
+
+如果更新包含 Codex Harness 版本变化，先查看官方 release notes，并在隔离环境运行：
+
+```sh
+npm ci
+npm run check
+npm run build
+npm run codex:check
+docker compose build api
+```
+
+其中 `.codex-version` 是唯一版本来源。协议检查、API 镜像构建和真实 DeepSeek 冒烟测试任一失败时，
+不得部署或只通过降低测试标准继续。回滚应用时同时恢复该版本对应的 `.codex-version` 和镜像。
 
 ## 日志与隐私
 

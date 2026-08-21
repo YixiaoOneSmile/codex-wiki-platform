@@ -1,5 +1,6 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { createInterface } from "node:readline";
+import { APP_VERSION } from "@cwp/shared";
 import type { AppConfig } from "../config.js";
 
 type JsonRpcId = number | string;
@@ -55,6 +56,10 @@ export class CodexAppServerClient {
     this.send({ id, result });
   }
 
+  private respondError(id: JsonRpcId, code: number, message: string) {
+    this.send({ id, error: { code, message } });
+  }
+
   private async handleServerRequest(message: RpcMessage, onApproval: RunTurnInput["onApproval"]) {
     if (message.id === undefined || !message.method) return;
     if (message.method === "item/commandExecution/requestApproval" || message.method === "item/fileChange/requestApproval") {
@@ -70,7 +75,7 @@ export class CodexAppServerClient {
       this.respond(message.id, { action: "decline" });
       return;
     }
-    this.respond(message.id, { decision: "decline" });
+    this.respondError(message.id, -32601, `Unsupported app-server request: ${message.method}`);
   }
 
   private async handleMessage(message: RpcMessage, onEvent: RunTurnInput["onEvent"], onApproval: RunTurnInput["onApproval"]) {
@@ -139,7 +144,7 @@ export class CodexAppServerClient {
     });
 
     try {
-      await this.request("initialize", { clientInfo: { name: "codex-wiki-platform", title: "Codex Wiki Platform", version: "0.1.0" }, capabilities: { experimentalApi: false, requestAttestation: false } });
+      await this.request("initialize", { clientInfo: { name: "codex-wiki-platform", title: "Codex Wiki Platform", version: APP_VERSION }, capabilities: { experimentalApi: false, requestAttestation: false } });
       this.send({ method: "initialized" });
       const common = {
         model: this.config.DEEPSEEK_MODEL,
