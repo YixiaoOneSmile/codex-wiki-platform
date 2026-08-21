@@ -161,7 +161,7 @@
             <span><i></i> 给大模型的完整指令</span>
             <button type="button" id="copy-deploy-prompt">复制提示词</button>
           </div>
-          <pre><code id="deploy-prompt-text">请在我的本地电脑上完整部署 Codex Wiki Platform：从 https://github.com/YixiaoOneSmile/codex-wiki-platform 克隆最新 main 分支，先检查并说明 Docker/Compose、Node.js 22+ 和官方 Codex CLI 是否可用，阅读 README、.env.example 与部署文档后创建仅保存在本机且不会提交的 .env；如果缺少 DeepSeek API Key 或其他必须由我提供的配置，请集中向我询问并等待，不得虚构、输出或提交任何密钥；配置完成后使用 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d 启动服务，按项目文档完成数据库初始化并执行 docker compose exec api node packages/database/dist/seed.js，确认各容器健康，运行项目检查与测试，最后实际访问 http://localhost:8080 验证登录、对话、Wiki、多租户权限和定时任务页面可用；遇到安全且可逆的本地问题请自行诊断、修复并重试，禁止删除现有数据、降低测试标准或跳过必要验证，完成后向我报告访问地址、演示账号、已通过的检查以及仍需我处理的事项。</code></pre>
+          <pre><code id="deploy-prompt-text">请在我的本地电脑上完整部署 Codex Wiki Platform：从 https://github.com/YixiaoOneSmile/codex-wiki-platform 克隆最新 main 分支，先检查并说明 Docker Engine / Docker Desktop 与 Docker Compose 是否可用，阅读 README、.env.example 与部署文档后创建仅保存在本机且不会提交的 .env；项目 API 镜像会按 .codex-version 自动安装官方 Codex Harness，不要把宿主机已安装 Codex CLI 当成部署前提；如果缺少 DeepSeek API Key 或其他必须由我提供的配置，请集中向我询问并等待，不得虚构、输出或提交任何密钥；配置完成后使用 docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d 启动服务，按项目文档完成数据库初始化并执行 docker compose exec api node packages/database/dist/seed.js，确认各容器健康，运行项目检查与测试，最后实际访问 http://localhost:8080 验证登录、对话、Wiki、多租户权限和定时任务页面可用；遇到安全且可逆的本地问题请自行诊断、修复并重试，禁止删除现有数据、降低测试标准或跳过必要验证，完成后向我报告访问地址、演示账号、已通过的检查以及仍需我处理的事项。</code></pre>
         </div>
         <p class="prompt-note">缺少密钥时，助手会停下来询问；真实密钥只保存在本机，不应出现在聊天、截图或 Git 提交中。</p>
       </section>

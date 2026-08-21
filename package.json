@@ -1,6 +1,6 @@
 {
   "name": "codex-wiki-platform",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "license": "Apache-2.0",
   "workspaces": ["apps/*", "packages/*"],
@@ -19,6 +19,7 @@
     "test:watch": "vitest",
     "typecheck": "npm run build -w @cwp/shared && npm run build -w @cwp/database && npm run typecheck -ws --if-present",
     "protocol:generate": "node scripts/generate-codex-protocol.mjs",
+    "codex:check": "node scripts/check-codex-protocol.mjs",
     "preflight": "node scripts/check-env.mjs"
   },
   "devDependencies": {
